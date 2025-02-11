@@ -19,3 +19,20 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+.vibrate {
+  animation: vibrate 4s linear infinite;
+}
+
+@keyframes vibrate {
+  0%, 91% { transform: translate(0); } /* No vibration most of the time */
+  92% { transform: translate(-2px, 0px); }
+  93% { transform: translate(2px, 0px); }
+  94% { transform: translate(-2px, 0px); }
+  95% { transform: translate(2px, 0px); }
+  96% { transform: translate(-2px, 0px); }
+  97% { transform: translate(2px, 0px); }
+  98% { transform: translate(-2px, 0px); }
+  99% { transform: translate(2px, 0px); }
+  100% { transform: translate(0); }
+}
