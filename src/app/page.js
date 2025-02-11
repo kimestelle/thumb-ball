@@ -71,7 +71,7 @@ export default function Home() {
 
         <motion.div
           className={`no-select w-24 h-24 rounded-full shadow-lg cursor-pointer flex items-center justify-center text-xl font-bold bg-red-500 transition-opacity duration-1000 ${
-            toggle || dragging ? "opacity-100" : "opacity-70 vibrate"
+            toggle || dragging ? "opacity-100" : "opacity-70"
           }`}
           style={{ x, y, rotate }}
           drag
@@ -83,7 +83,7 @@ export default function Home() {
           onMouseDown={() => setToggle(true)}
           onTouchStart={() => setToggle(true)}
         >
-          {toggle ? "*.*" : "-.-"}
+          {toggle ? "*.*" : (dragging ? "o.o" : "-.-")}
         </motion.div>
       </div>
     </div>
