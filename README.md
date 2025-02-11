@@ -1,4 +1,5 @@
 ![alt text](<Screenshot 2025-02-11 at 3.26.32 PM.png>)
+
 experiment with browser haptics and user interaction.
 
 i wanted to mash different objects and forms of interactions into one sensory fidget toy experience, and used motionJS to animate a button-ball-joystick-pet object that users can physically interact with.
