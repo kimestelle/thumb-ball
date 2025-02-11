@@ -65,12 +65,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-100 text-white">
-      <div className="flex flex-col items-center space-y-6">
+    <div className="no-select flex min-h-screen items-center justify-center bg-zinc-100 text-white">
+      <div className="no-select flex flex-col items-center space-y-6">
         <h1 className="text-2xl font-bold text-black select-none no-select">thumb*ball</h1>
 
         <motion.div
-          className={`w-24 h-24 rounded-full shadow-lg cursor-pointer flex items-center justify-center text-xl font-bold bg-red-500 transition-opacity duration-1000 ${
+          className={`no-select w-24 h-24 rounded-full shadow-lg cursor-pointer flex items-center justify-center text-xl font-bold bg-red-500 transition-opacity duration-1000 ${
             toggle || dragging ? "opacity-100" : "opacity-70"
           }`}
           style={{ x, y, rotate }}
