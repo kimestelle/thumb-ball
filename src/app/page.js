@@ -4,6 +4,9 @@ import { useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "motion/react"; // ✅ Correct import
 
 export default function Home() {
+  //disable vibrations in iOS (not supported)
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   const [toggle, setToggle] = useState(false);
   const [dragging, setDragging] = useState(false);
   const x = useMotionValue(0);
@@ -15,10 +18,16 @@ export default function Home() {
 
   const rotate = useTransform(x, (latestX) => latestX / 5);
 
+  const safeVibrate = (pattern) => {
+    if (!isIOS && "vibrate" in navigator) {
+      navigator.vibrate(pattern);
+    }
+  };
+
   const startContinualVibrate = (duration, interval) => {
     stopVibrate(); //no duplicate intervals
     vibrateIntervalRef.current = setInterval(() => {
-      navigator.vibrate(duration);
+      safeVibrate(duration);
     }, interval);
   };
 
@@ -27,7 +36,7 @@ export default function Home() {
       clearInterval(vibrateIntervalRef.current);
       vibrateIntervalRef.current = null;
     }
-    navigator.vibrate(0);
+    safeVibrate(0);
   };
 
   const handleDragStart = () => {
@@ -70,7 +79,7 @@ export default function Home() {
           onDragStart={handleDragStart}
           onDragEnd={handleRelease}
           whileTap={{ scale: 0.85 }}
-          onClick={() => setToggle(!toggle, navigator.vibrate(200))}
+          onClick={() => setToggle(!toggle, safeVibrate(200))}
           onMouseDown={() => setToggle(true)}
           onTouchStart={() => setToggle(true)}
         >
