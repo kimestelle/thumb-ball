@@ -11,18 +11,36 @@ export default function Home() {
 
   //track active animations
   const animationRef = useRef({ x: null, y: null });
+  const vibrateIntervalRef = useRef(null);
 
   const rotate = useTransform(x, (latestX) => latestX / 5);
 
+  const startContinualVibrate = (duration, interval) => {
+    stopVibrate(); //no duplicate intervals
+    vibrateIntervalRef.current = setInterval(() => {
+      navigator.vibrate(duration);
+    }, interval);
+  };
+
+  const stopVibrate = () => {
+    if (vibrateIntervalRef.current) {
+      clearInterval(vibrateIntervalRef.current);
+      vibrateIntervalRef.current = null;
+    }
+    navigator.vibrate(0);
+  };
+
   const handleDragStart = () => {
     setDragging(true);
+    stopVibrate();
+    startContinualVibrate(50, 100);
     if (animationRef.current.x) animationRef.current.x.stop();
     if (animationRef.current.y) animationRef.current.y.stop();
   };
 
   const handleRelease = () => {
     setDragging(false);
-
+    stopVibrate();
     //return ball to center
     animationRef.current.x = animate(x, 0, {
       easing: "ease-out",
@@ -52,7 +70,7 @@ export default function Home() {
           onDragStart={handleDragStart}
           onDragEnd={handleRelease}
           whileTap={{ scale: 0.85 }}
-          onClick={() => setToggle(!toggle)}
+          onClick={() => setToggle(!toggle, navigator.vibrate(200))}
           onMouseDown={() => setToggle(true)}
           onTouchStart={() => setToggle(true)}
         >
